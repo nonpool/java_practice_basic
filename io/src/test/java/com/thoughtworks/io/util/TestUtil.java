@@ -10,6 +10,7 @@ import java.nio.file.Paths;
 import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.Arrays;
+import java.util.Objects;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
@@ -71,17 +72,19 @@ public class TestUtil {
     }
 
     public static void cleanDirectory(File file) {
-        if (file.exists()) {
-            for (File f : file.listFiles()) {
-                if (f.isDirectory()) {
-                    cleanDirectory(f);
-                } else {
-                    f.delete();
-                }
+        if (file.isDirectory() && file.exists()) {
+            for (File f : Objects.requireNonNull(file.listFiles())) {
+                deleteFile(f);
             }
+        }
+    }
+
+    public static void deleteFile(File file) {
+        if (file.isDirectory()) {
+            cleanDirectory(file);
+        } else {
+            file.delete();
         }
         file.delete();
     }
-
-
 }
