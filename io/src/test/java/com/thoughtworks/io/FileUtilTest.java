@@ -92,6 +92,20 @@ class FileUtilTest {
         assertDirsEqual(from, to);
     }
 
+    @Test
+    void should_copy_correctly_given_from_and_to_both_includes_multiple_files() throws IOException {
+        File from = FROM_PATH.toFile();
+        File to = TO_PATH.toFile();
+        commonCreate();
+        createFile(TO_PATH, "8.txt", "888");
+        createFile(Paths.get(TO_PATH.toString(),"work"), "9.txt", "999");
+        createFolder(Paths.get(TO_PATH.toString(),"empty"));
+
+        FileUtil.copyDirectory(from, to);
+
+        assertDirsEqual(from, to);
+    }
+
     private void commonCreate() throws IOException {
         createFile(FROM_PATH, "1.txt", "123");
         Path workPath = Paths.get(FROM_PATH.toString(), "work");
