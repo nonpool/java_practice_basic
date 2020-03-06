@@ -1,6 +1,16 @@
 package com.thoughtworks;
 
 public abstract class Animal implements Walkable {
+
+    public int age;
+
+    public Animal() {
+    }
+
+    public Animal(String name) {
+        this.name = name;
+    }
+
     private String name;
 
     protected void run() {

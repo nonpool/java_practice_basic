@@ -1,6 +1,6 @@
 package com.thoughtworks;
 
-public class A {
+public class A extends Parrot {
     @Limit(min = 1,max = 100)
     private int length;
 

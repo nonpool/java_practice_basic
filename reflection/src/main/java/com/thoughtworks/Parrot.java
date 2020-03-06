@@ -1,5 +1,6 @@
 package com.thoughtworks;
 
+@Alias
 public class Parrot extends Animal {
 
     public Parrot() {
@@ -9,14 +10,21 @@ public class Parrot extends Animal {
         this.canTalk = canTalk;
     }
 
+    private Parrot(int flySpeed, boolean canTalk) {
+        this.flySpeed = flySpeed;
+        this.canTalk = canTalk;
+    }
+
     @Limit(min = 1, max = 140)
     private int flySpeed;
 
     private boolean canTalk;
 
+    public String petName;
+
     @Override
     public void walk() {
-        System.out.println("Cuckoo is walking");
+        System.out.println("Parrot is walking");
     }
 
     private void privateMethod(){
@@ -34,6 +42,10 @@ public class Parrot extends Animal {
 
     public int getFlySpeed() {
         return flySpeed;
+    }
+
+    public void setCanTalk(boolean canTalk) {
+        this.canTalk = canTalk;
     }
 
     @Override
