@@ -1,11 +1,13 @@
 package com.thoughtworks;
 
 import com.thoughtworks.annotation.Alias;
-import com.thoughtworks.annotation.Limit;
 import com.thoughtworks.constant.Gender;
 import com.thoughtworks.model.Animal;
+import com.thoughtworks.model.Desk;
 import com.thoughtworks.model.Parrot;
 import com.thoughtworks.model.Walkable;
+import com.thoughtworks.util.JsonUtil;
+import com.thoughtworks.util.LimitValidator;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
@@ -44,12 +46,46 @@ public class App {
 
         // 其他常用方法
         otherReflection();
+
+        // 应用1: 使Limit注解功能生效
+        limitExample();
+
+        // 应用2: 把对象转换成json字符串
+        jsonExample();
+    }
+
+    private static void jsonExample() throws IllegalAccessException {
+        Parrot parrot = new Parrot();
+        parrot.setFlySpeed(100);
+        parrot.setCanTalk(true);
+        parrot.petName = "wuwu";
+
+        System.out.println(JsonUtil.toJson(parrot));
+
+    }
+
+    private static void limitExample() throws IllegalAccessException {
+        Desk desk1 = new Desk(100);
+        Desk desk2 = new Desk(-1);
+
+        Parrot parrot1 = new Parrot();
+        parrot1.setFlySpeed(100);
+        Parrot parrot2 = new Parrot();
+        parrot2.setFlySpeed(200);
+
+        LimitValidator.validate(desk1);
+        LimitValidator.validate(parrot1);
+
+        // 报错
+        //LimitValidator.validate(desk2);
+        //LimitValidator.validate(parrot2);
     }
 
     private static void otherReflection() {
         // 判断某个类是不是指定接口或者父类的实现类或者子类 isAssignableFrom 方法
         Walkable.class.isAssignableFrom(Parrot.class); // true
         Walkable.class.isAssignableFrom(Animal.class); // true
+        Parrot.class.isAssignableFrom(Parrot.class); // true
 
         // 获取父类 注意 只能获取直接父类
         Class<? super Parrot> superclass = Parrot.class.getSuperclass();
@@ -190,23 +226,6 @@ public class App {
         // Class.forName(全限定名)
         Class<Parrot> aClass1 = (Class<Parrot>) Class.forName("com.thoughtworks.model.Parrot");
         return parrotClass;
-    }
-
-    public static void checkLimit(Object object) throws NoSuchFieldException, IllegalAccessException {
-        Field[] declaredFields = object.getClass().getDeclaredFields();
-        for (Field declaredField : declaredFields) {
-            if (declaredField.isAnnotationPresent(Limit.class)) {
-                Limit annotation = declaredField.getAnnotation(Limit.class);
-
-                int min = annotation.min();
-                int max = annotation.max();
-                declaredField.setAccessible(true);
-                int intValue = declaredField.getInt(object);
-                if (intValue < min || intValue > max) {
-                    System.out.println(object + "xxxxxxx");
-                }
-            }
-        }
     }
 
 }
