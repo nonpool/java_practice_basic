@@ -82,6 +82,8 @@ public final class JsonUtil {
     /**
      * 把字符串转换成对应的对象
      * 字符串格式为toJson方法生成的字符串格式
+     * 简单版本: 能够正确反序列化Parrot对象
+     * 进阶版本: 能够正确反序列化JsonModel对象
      */
     public static <T> T toObject(String json, Class<T> clazz) {
         return null;
