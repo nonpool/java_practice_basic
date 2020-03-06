@@ -27,6 +27,15 @@ public class Parrot extends Animal {
         System.out.println("static method in parrot");
     }
 
+    public void setFlySpeed(int flySpeed) {
+        this.flySpeed = flySpeed;
+    }
+
+
+    public int getFlySpeed() {
+        return flySpeed;
+    }
+
     @Override
     public String toString() {
         return "Parrot{" +
