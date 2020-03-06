@@ -1,16 +1,18 @@
-package com.thoughtworks;
+package com.thoughtworks.model;
 
-public class A extends Parrot {
+import com.thoughtworks.annotation.Limit;
+
+public class Desk extends Parrot {
     @Limit(min = 1,max = 100)
     private int length;
 
-    public A(int length) {
+    public Desk(int length) {
         this.length = length;
     }
 
     @Override
     public String toString() {
-        return "A{" +
+        return "Desk{" +
                 "length=" + length +
                 '}';
     }

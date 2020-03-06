@@ -1,5 +1,12 @@
 package com.thoughtworks;
 
+import com.thoughtworks.annotation.Alias;
+import com.thoughtworks.annotation.Limit;
+import com.thoughtworks.constant.Gender;
+import com.thoughtworks.model.Animal;
+import com.thoughtworks.model.Parrot;
+import com.thoughtworks.model.Walkable;
+
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
@@ -9,10 +16,10 @@ import java.lang.reflect.Method;
 public class App {
     public static void main(String[] args) throws ClassNotFoundException, IllegalAccessException, InstantiationException, NoSuchMethodException, InvocationTargetException, NoSuchFieldException {
         // class对象获取: 三种方法
-        Class<Parrot> parrotClass = getParrotClass();
+        getParrotClass();
 
         // newInstance方法 只能调用对应类的共有无参方法
-        Parrot parrot1 = parrotClass.newInstance();
+        Parrot parrot = Parrot.class.newInstance();
 
         // 获取构造器
         getConstructor();
@@ -50,6 +57,7 @@ public class App {
 
         // 获取接口 注意只能获取到直接实现的接口
         Class<?>[] interfaces = Animal.class.getInterfaces(); // 数组里只有一个Walkable
+        final Class<?>[] interfaces1 = Parrot.class.getInterfaces(); // 空数组
     }
 
     private static void getAnnotation() throws NoSuchFieldException {
@@ -180,7 +188,7 @@ public class App {
         Class<? extends Parrot> aClass = parrot.getClass();
 
         // Class.forName(全限定名)
-        Class<Parrot> aClass1 = (Class<Parrot>) Class.forName("com.thoughtworks.Parrot");
+        Class<Parrot> aClass1 = (Class<Parrot>) Class.forName("com.thoughtworks.model.Parrot");
         return parrotClass;
     }
 

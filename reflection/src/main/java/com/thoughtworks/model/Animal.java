@@ -1,4 +1,4 @@
-package com.thoughtworks;
+package com.thoughtworks.model;
 
 public abstract class Animal implements Walkable {
 

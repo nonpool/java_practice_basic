@@ -1,4 +1,7 @@
-package com.thoughtworks;
+package com.thoughtworks.model;
+
+import com.thoughtworks.annotation.Alias;
+import com.thoughtworks.annotation.Limit;
 
 @Alias
 public class Parrot extends Animal {

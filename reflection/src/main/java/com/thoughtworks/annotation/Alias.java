@@ -1,13 +1,12 @@
-package com.thoughtworks;
+package com.thoughtworks.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-@Target(ElementType.FIELD)
+@Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface Limit {
-    int max();
-    int min();
+public @interface Alias {
+    String value() default "";
 }
