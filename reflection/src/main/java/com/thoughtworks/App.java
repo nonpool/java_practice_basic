@@ -4,6 +4,7 @@ import com.thoughtworks.annotation.Alias;
 import com.thoughtworks.constant.Gender;
 import com.thoughtworks.model.Animal;
 import com.thoughtworks.model.Desk;
+import com.thoughtworks.model.JsonModel;
 import com.thoughtworks.model.Parrot;
 import com.thoughtworks.model.Walkable;
 import com.thoughtworks.util.JsonUtil;
@@ -14,6 +15,8 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+
+import static java.util.Arrays.asList;
 
 public class App {
     public static void main(String[] args) throws ClassNotFoundException, IllegalAccessException, InstantiationException, NoSuchMethodException, InvocationTargetException, NoSuchFieldException {
@@ -54,7 +57,7 @@ public class App {
         jsonExample();
     }
 
-    private static void jsonExample() throws IllegalAccessException {
+    private static void jsonExample() {
         Parrot parrot = new Parrot();
         parrot.setFlySpeed(100);
         parrot.setCanTalk(true);
@@ -62,6 +65,14 @@ public class App {
 
         System.out.println(JsonUtil.toJson(parrot));
 
+        final JsonModel jsonModel = new JsonModel("Lily",
+                20,
+                new Parrot(),
+                asList("a", "b"),
+                asList(new Parrot(true), parrot),
+                asList(new Desk(10), new Desk(20)));
+
+        System.out.println(JsonUtil.toJson(jsonModel));
     }
 
     private static void limitExample() throws IllegalAccessException {
